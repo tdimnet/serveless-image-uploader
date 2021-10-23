@@ -1,6 +1,8 @@
 from aws_cdk import (
     core as cdk,
-    aws_lambda as _lambda
+    aws_lambda as _lambda,
+    aws_s3 as s3,
+    aws_s3_deployment as s3deploy
 )
 
 
@@ -8,6 +10,18 @@ class ServelessImageUploaderStack(cdk.Stack):
 
     def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        front_end_bucket = s3.Bucket(
+            self, 'FrontEndBucket',
+            public_read_access=True,
+            website_index_document="index.html"
+        )
+
+        s3deploy.BucketDeployment(
+            self, "DeployFrontEnd",
+            sources=[s3deploy.Source.asset('./front-app/build')],
+            destination_bucket=front_end_bucket
+        )
 
         # The code that defines your stack goes here
         hello_world_lambda = _lambda.Function(

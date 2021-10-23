@@ -27,6 +27,6 @@ constructs==3.3.161
 jsii==1.40.0
 publication==0.0.3
 python-dateutil==2.8.2
--e git+git@github.com:tdimnet/serveless-image-uploader.git@cfd5bb321bfe32f410bef051f4402f2e3f678dbc#egg=serveless_image_uploader
+-e git+git@github.com:tdimnet/serveless-image-uploader.git@70476eb2218d87b3bd6a0850d1c3f0c7a39482f0#egg=serveless_image_uploader
 six==1.16.0
 typing-extensions==3.10.0.2
