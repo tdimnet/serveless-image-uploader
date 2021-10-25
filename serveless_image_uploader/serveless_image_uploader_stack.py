@@ -8,6 +8,7 @@ from aws_cdk import (
     aws_cloudfront_origins as origins
 )
 
+
 class ServelessImageUploaderStack(cdk.Stack):
 
     def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
@@ -39,9 +40,12 @@ class ServelessImageUploaderStack(cdk.Stack):
         # Lambda
         hello_world_lambda = _lambda.Function(
             self, 'HelloWorldHandler',
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_9,
             code=_lambda.Code.from_asset('lambda'),
-            handler='hello_world.handler'
+            handler='hello_world.handler',
+            environment=dict(
+                BUCKET_NAME=images_bucket.bucket_name
+            )
         )
 
         # API Gateway
@@ -49,3 +53,6 @@ class ServelessImageUploaderStack(cdk.Stack):
             self, "ApiGatewayEndpoint",
             handler=hello_world_lambda
         )
+
+        # Grant access to ressources
+        images_bucket.grant_read_write(hello_world_lambda)
