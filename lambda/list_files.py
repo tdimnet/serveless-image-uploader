@@ -22,5 +22,5 @@ def handler(event, context):
         'headers': {
             'Content-Type': 'text/plain'
         },
-        'body': 'Prepare for data in {}'.format(bucket)
+        'body': 'Fetching all images in bucket in {}'.format(bucket)
     }

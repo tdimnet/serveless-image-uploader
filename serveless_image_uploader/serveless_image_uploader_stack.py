@@ -55,11 +55,40 @@ class ServelessImageUploaderStack(cdk.Stack):
             )
         )
 
+        upload_file_lambda = _lambda.Function(
+            self, 'UploadFileHandler',
+            runtime=_lambda.Runtime.PYTHON_3_9,
+            code=_lambda.Code.from_asset('lambda'),
+            handler='upload_file.handler',
+            environment=dict(
+                BUCKET_NAME=images_bucket.bucket_name
+            )
+        )
+
         # API Gateway
-        apigw.LambdaRestApi(
-            self, "ApiGatewayEndpoint",
-            handler=list_files_lambda
+        api = apigw.RestApi(self, 'Api')
+
+        # Hello World Api Example
+        hello_api = api.root.add_resource('hello')
+        hello_api.add_method(
+            'GET',
+            apigw.LambdaIntegration(hello_world_lambda)
+        )
+
+        # Images Api
+        images_api = api.root.add_resource('images')
+        
+        images_api.add_method(
+            'GET',
+            apigw.LambdaIntegration(list_files_lambda)
+        )
+
+        images_api.add_method(
+            'POST',
+            apigw.LambdaIntegration(upload_file_lambda)
         )
 
         # Grant access to ressources
-        images_bucket.grant_read_write(hello_world_lambda)
+        images_bucket.grant_read(list_files_lambda)
+        images_bucket.grant_write(upload_file_lambda)
+
