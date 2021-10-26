@@ -1,4 +1,7 @@
 import os
+import json
+import base64
+import uuid
 
 import boto3
 s3 = boto3.resource('s3')
@@ -7,16 +10,26 @@ s3 = boto3.resource('s3')
 def handler(event, context):
     bucket = s3.Bucket(os.environ.get('BUCKET_NAME'))
 
-    # txt_data = b'This is the content of the file uploaded from python boto3 asdfasdf'
+    json_body = json.loads(event['body'])
+    file_name = json_body['name']
+    file_content = json_body['file']
+    unique_id = uuid.uuid3(uuid.NAMESPACE_DNS, file_name)
 
-    # object = s3.Object(asset_bucket, 'file_name.txt')
-    # result = object.put(Body=txt_data)
+    full_path = '{}/{}'.format(unique_id, file_name)
 
+    bucket.put_object(
+        Key=full_path,
+        Body=base64.b64decode(file_content),
+        ContentType='image/jpeg'
+    )
 
     return {
         'statusCode': 200,
         'headers': {
             'Content-Type': 'text/plain'
         },
-        'body': 'Prepare to upload file in {}'.format(bucket)
+        'body': {
+            'message': 'success',
+            'image_path': 'the path of the image is: {}'.format(full_path)
+        }
     }
