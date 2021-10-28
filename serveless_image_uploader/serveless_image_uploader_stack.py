@@ -1,3 +1,4 @@
+from os import write
 from aws_cdk import (
     core as cdk,
     aws_lambda as _lambda,

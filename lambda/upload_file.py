@@ -8,7 +8,8 @@ s3 = boto3.resource('s3')
 
 
 def handler(event, context):
-    bucket = s3.Bucket(os.environ.get('BUCKET_NAME'))
+    bucket_name = os.environ.get('BUCKET_NAME')
+    bucket = s3.Bucket(bucket_name)
 
     json_body = json.loads(event['body'])
     file_name = json_body['name']
@@ -28,8 +29,5 @@ def handler(event, context):
         'headers': {
             'Content-Type': 'text/plain'
         },
-        'body': {
-            'message': 'success',
-            'image_path': 'the path of the image is: {}'.format(full_path)
-        }
+        'body': 'success'
     }
