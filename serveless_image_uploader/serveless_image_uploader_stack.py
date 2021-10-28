@@ -1,3 +1,4 @@
+from attr import Attribute
 from aws_cdk import (
     core as cdk,
     aws_lambda as _lambda,
@@ -5,7 +6,8 @@ from aws_cdk import (
     aws_apigateway as apigw,
     aws_cloudfront as cloudfront,
     aws_s3_deployment as s3deploy,
-    aws_cloudfront_origins as origins
+    aws_cloudfront_origins as origins,
+    aws_dynamodb as ddb,
 )
 
 
@@ -37,6 +39,15 @@ class ServelessImageUploaderStack(cdk.Stack):
             default_behavior=cloudfront.BehaviorOptions(origin=origins.S3Origin(front_end_bucket))
         )
 
+        # DynamoDB
+        file_table = ddb.Table(
+            self, "FileTable",
+            partition_key={
+                'name': 'file_path',
+                'type': ddb.AttributeType.STRING
+            }
+        )
+
         # Lambda
         hello_world_lambda = _lambda.Function(
             self, 'HelloWorldHandler',
@@ -59,7 +70,10 @@ class ServelessImageUploaderStack(cdk.Stack):
             self, 'FileToDDBHandler',
             runtime=_lambda.Runtime.PYTHON_3_9,
             code=_lambda.Code.from_asset('lambda'),
-            handler='file_to_ddb.handler'
+            handler='file_to_ddb.handler',
+            environment=dict(
+                DDB_TABLE_NAME=file_table.table_name
+            )
         )
 
         upload_file_lambda = _lambda.Function(
@@ -101,4 +115,6 @@ class ServelessImageUploaderStack(cdk.Stack):
         images_bucket.grant_write(upload_file_lambda)
 
         file_to_ddb_lambda.grant_invoke(upload_file_lambda)
+
+        file_table.grant_write_data(file_to_ddb_lambda)
 
