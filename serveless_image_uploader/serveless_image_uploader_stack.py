@@ -1,4 +1,3 @@
-from os import write
 from aws_cdk import (
     core as cdk,
     aws_lambda as _lambda,
@@ -56,13 +55,21 @@ class ServelessImageUploaderStack(cdk.Stack):
             )
         )
 
+        file_to_ddb_lambda = _lambda.Function(
+            self, 'FileToDDBHandler',
+            runtime=_lambda.Runtime.PYTHON_3_9,
+            code=_lambda.Code.from_asset('lambda'),
+            handler='file_to_ddb.handler'
+        )
+
         upload_file_lambda = _lambda.Function(
             self, 'UploadFileHandler',
             runtime=_lambda.Runtime.PYTHON_3_9,
             code=_lambda.Code.from_asset('lambda'),
             handler='upload_file.handler',
             environment=dict(
-                BUCKET_NAME=images_bucket.bucket_name
+                BUCKET_NAME=images_bucket.bucket_name,
+                FILE_TO_DB_LAMBDA=file_to_ddb_lambda.function_name
             )
         )
 
@@ -92,4 +99,6 @@ class ServelessImageUploaderStack(cdk.Stack):
         # Grant access to ressources
         images_bucket.grant_read(list_files_lambda)
         images_bucket.grant_write(upload_file_lambda)
+
+        file_to_ddb_lambda.grant_invoke(upload_file_lambda)
 
