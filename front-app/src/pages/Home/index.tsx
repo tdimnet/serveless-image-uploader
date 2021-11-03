@@ -1,6 +1,8 @@
+import './index.css'
+
 const Page = () => (
-    <div>
-        <h1>Home Page</h1>
+    <div className='fa-homepage'>
+        <h1>Upload and share your images</h1>
     </div>
 )
 
