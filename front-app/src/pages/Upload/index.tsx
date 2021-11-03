@@ -1,6 +1,6 @@
 const Page = () => (
     <div>
-        <h1>About Page</h1>
+        <h1>Upload File Page</h1>
     </div>
 )
 

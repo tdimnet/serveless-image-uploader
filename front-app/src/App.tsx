@@ -8,8 +8,11 @@ import HomePage from './pages/Home'
 import FilesListPage from './pages/FilesList'
 import UploadPage from './pages/Upload'
 
+import Navigation from './components/Navigation'
+
 const App = () => (
     <Router>
+        <Navigation />
         <Switch>
             <Route path='/files-list'>
                 <FilesListPage />

@@ -1,6 +1,6 @@
 const Page = () => (
     <div>
-        <h1>FilesList Page</h1>
+        <h1>Files List Page</h1>
     </div>
 )
 

@@ -1,0 +1,17 @@
+.main-nav {}
+
+.main-nav ul {
+    display: flex;
+    padding-left: 0;
+    margin-top: 0;
+    justify-content: space-around;
+}
+
+.nav-item {
+    list-style-type: none;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+}
