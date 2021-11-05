@@ -38,6 +38,8 @@ def handler(event, context):
         Payload=json.dumps(payload)
     )
 
+    image_url = 'https://{}.s3.amazonaws.com/{}'.format(bucket_name, full_path)
+
     return {
         'statusCode': 200,
         'headers': {
@@ -46,6 +48,6 @@ def handler(event, context):
         },
         'body': json.dumps({
             'message': 'success',
-            'image_path': full_path
+            'image_path': image_url
         })
     }

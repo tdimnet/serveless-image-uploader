@@ -18,7 +18,8 @@ class ServelessImageUploaderStack(cdk.Stack):
 
         # S3
         images_bucket = s3.Bucket(
-            self, 'ImagesBucket'
+            self, 'ImagesBucket',
+            public_read_access=True
         )
 
         front_end_bucket = s3.Bucket(
