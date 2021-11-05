@@ -1,25 +1,33 @@
 import os
+import json
 
 import boto3
+
 s3 = boto3.resource('s3')
+ddb = boto3.resource('dynamodb')
 
 
 def handler(event, context):
-    print("Call list_files lambda function")
+    bucket_name = os.environ.get('BUCKET_NAME')
+    ddb_table_name = os.environ.get('DDB_TABLE')
 
-    bucket = s3.Bucket(os.environ.get('BUCKET_NAME'))
-
-    print("List the objets in the bucket {}".format(bucket))
-
-    for object in bucket.objects.all():
-        print("=====")
-        print(object)
-        print("=====")
+    ddb_table = ddb.Table(ddb_table_name)
+    table_data = ddb_table.scan()
+    
+    images = []
+    for image in table_data['Items']:
+        image_path = image['file_path']
+        images.append(
+            'https://{}.s3.amazonaws.com/{}'.format(bucket_name, image_path)
+        )
 
     return {
         'statusCode': 200,
         'headers': {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'text/json'
         },
-        'body': 'Fetching all images in bucket in {}'.format(bucket)
+        'body': json.dumps({
+            'message': 'success',
+            'images': images
+        })
     }

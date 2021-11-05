@@ -7,7 +7,7 @@ interface InputFile {
     picture: FileList
 }
 
-const API_GATEWAY = 'https://i7mka11fei.execute-api.us-east-1.amazonaws.com/prod'
+const API_GATEWAY = 'https://vemb2pohx7.execute-api.us-east-1.amazonaws.com/prod/'
 
 const Page = () => {
     const { register, handleSubmit } = useForm()

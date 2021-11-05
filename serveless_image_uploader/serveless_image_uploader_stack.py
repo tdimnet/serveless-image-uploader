@@ -63,7 +63,8 @@ class ServelessImageUploaderStack(cdk.Stack):
             code=_lambda.Code.from_asset('lambda'),
             handler='list_files.handler',
             environment=dict(
-                BUCKET_NAME=images_bucket.bucket_name
+                BUCKET_NAME=images_bucket.bucket_name,
+                DDB_TABLE=file_table.table_name
             )
         )
 
@@ -124,4 +125,4 @@ class ServelessImageUploaderStack(cdk.Stack):
         file_to_ddb_lambda.grant_invoke(upload_file_lambda)
 
         file_table.grant_write_data(file_to_ddb_lambda)
-
+        file_table.grant_read_data(list_files_lambda)
