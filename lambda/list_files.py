@@ -24,7 +24,8 @@ def handler(event, context):
     return {
         'statusCode': 200,
         'headers': {
-            'Content-Type': 'text/json'
+            'Content-Type': 'text/json',
+            'Access-Control-Allow-Origin' : '*',
         },
         'body': json.dumps({
             'message': 'success',
