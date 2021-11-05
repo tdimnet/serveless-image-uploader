@@ -88,7 +88,13 @@ class ServelessImageUploaderStack(cdk.Stack):
         )
 
         # API Gateway
-        api = apigw.RestApi(self, 'Api')
+        api = apigw.RestApi(
+            self, 'Api',
+            default_cors_preflight_options={
+                "allow_origins": apigw.Cors.ALL_ORIGINS,
+                "allow_methods": apigw.Cors.ALL_METHODS
+            }
+        )
 
         # Hello World Api Example
         hello_api = api.root.add_resource('hello')

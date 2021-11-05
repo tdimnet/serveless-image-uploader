@@ -1,7 +1,7 @@
-import os
-import json
 import base64
-import uuid
+import datetime
+import json
+import os
 
 import boto3
 
@@ -18,14 +18,16 @@ def handler(event, context):
     json_body = json.loads(event['body'])
     file_name = json_body['name']
     file_content = json_body['file']
-    unique_id = uuid.uuid3(uuid.NAMESPACE_DNS, file_name)
-
+    
+    file_base_64 = base64.b64decode(file_content[23: ])
+    
+    unique_id = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     full_path = '{}/{}'.format(unique_id, file_name)
 
     bucket.put_object(
         Key=full_path,
-        Body=base64.b64decode(file_content),
-        ContentType='image/jpeg'
+        Body=file_base_64,
+        ContentType='image/jpg'
     )
 
     payload = {"file": full_path}
@@ -39,7 +41,11 @@ def handler(event, context):
     return {
         'statusCode': 200,
         'headers': {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'text/json',
+            'Access-Control-Allow-Origin' : '*',
         },
-        'body': 'success'
+        'body': json.dumps({
+            'message': 'success',
+            'image_path': full_path
+        })
     }

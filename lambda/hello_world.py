@@ -4,7 +4,8 @@ def handler(event, context):
     return {
         'statusCode': 200,
         'headers': {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin' : '*',
         },
         'body': 'Hello, World from the AWS CDK'
     }

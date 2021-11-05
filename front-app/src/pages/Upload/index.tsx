@@ -5,6 +5,8 @@ interface InputFile {
     picture: FileList
 }
 
+const API_GATEWAY = 'https://i7mka11fei.execute-api.us-east-1.amazonaws.com/prod'
+
 const Page = () => {
     const { register, handleSubmit } = useForm()
 
@@ -15,14 +17,26 @@ const Page = () => {
         reader.onerror = error => reject(error);
     })
 
-    const onSubmitForm = async (data: InputFile) => {
+    const onSubmitForm = async (data: any) => {
         const file = data.picture.item(0)
+        const fileBase64 = await toBase64(file)
 
-        console.log("=====")
-        console.log(file)
-        console.log("=====")
-        console.log(await toBase64(file))
-        console.log("=====")
+        const body = {
+            name: file.name,
+            file: fileBase64
+        }
+
+        console.log('=====')
+        console.log(body)
+        console.log('=====')
+
+        fetch(`${API_GATEWAY}/images`, {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+            .then(() => console.log('====='))
+            .catch(() => console.log('oh no :('))
+
     }
 
     return (
