@@ -30,7 +30,7 @@ const Page = () => {
 
         const { images } = data
         return images.length ?
-            images.map(image => <img key={image} src={image} alt='' className='fa-files-list-image' />)
+            images.map(image => <img key={image} src={`https://${image}`} alt='' className='fa-files-list-image' />)
             : <p>No images</p>
     }
 

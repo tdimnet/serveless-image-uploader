@@ -8,8 +8,8 @@ ddb = boto3.resource('dynamodb')
 
 
 def handler(event, context):
-    bucket_name = os.environ.get('BUCKET_NAME')
     ddb_table_name = os.environ.get('DDB_TABLE')
+    cdn_name = os.environ.get('IMAGES_CDN')
 
     ddb_table = ddb.Table(ddb_table_name)
     table_data = ddb_table.scan()
@@ -18,7 +18,7 @@ def handler(event, context):
     for image in table_data['Items']:
         image_path = image['file_path']
         images.append(
-            'https://{}.s3.amazonaws.com/{}'.format(bucket_name, image_path)
+            '{}/{}'.format(cdn_name, image_path)
         )
 
     return {

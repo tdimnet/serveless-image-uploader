@@ -35,9 +35,9 @@ class ServelessImageUploaderStack(cdk.Stack):
         )
 
         # CloudFront
-        cloudfront.Distribution(
-            self, "FrontEndDistribution",
-            default_behavior=cloudfront.BehaviorOptions(origin=origins.S3Origin(front_end_bucket))
+        images_cdn = cloudfront.Distribution(
+            self, "ImagesDistribution",
+            default_behavior=cloudfront.BehaviorOptions(origin=origins.S3Origin(images_bucket))
         )
 
         # DynamoDB
@@ -63,8 +63,8 @@ class ServelessImageUploaderStack(cdk.Stack):
             code=_lambda.Code.from_asset('lambda'),
             handler='list_files.handler',
             environment=dict(
-                BUCKET_NAME=images_bucket.bucket_name,
-                DDB_TABLE=file_table.table_name
+                DDB_TABLE=file_table.table_name,
+                IMAGES_CDN=images_cdn.domain_name
             )
         )
 
