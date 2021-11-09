@@ -4,6 +4,8 @@ import {
     Route
 } from "react-router-dom"
 
+import './global.css'
+
 import HomePage from './pages/Home'
 import FilesListPage from './pages/FilesList'
 import UploadPage from './pages/Upload'

@@ -1,5 +1,24 @@
+.fa-upload-page {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 24px;
+}
+
+.fa-upload-form {
+    margin-bottom: 24px;
+}
+
+.fa-uploaded-img-wrapper {
+    width: 60%;
+}
+
 .fa-uploaded-img {
-    height: 100px;
-    width: 100px;
+    width: 100%;
     object-fit: cover;
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

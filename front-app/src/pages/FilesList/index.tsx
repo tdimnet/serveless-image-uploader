@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const API_GATEWAY = 'https://vemb2pohx7.execute-api.us-east-1.amazonaws.com/prod'
+import { API_GATEWAY } from '../../constants'
 
 
 const Page = () => {
@@ -35,9 +35,11 @@ const Page = () => {
 
     return (
         <div>
-            <h1>Files List Page</h1>
+            <h1 className='title'>Files List Page</h1>
             {
-                images.map(image => <img key={image} src={image} alt='' />)
+                images.length ?
+                    images.map(image => <img key={image} src={image} alt='' />)
+                    : <p>No images</p>
             }
         </div>
     )

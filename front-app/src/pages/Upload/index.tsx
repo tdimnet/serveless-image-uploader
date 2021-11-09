@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import './index.css'
+import { API_GATEWAY } from '../../constants'
 
-const API_GATEWAY = 'https://vemb2pohx7.execute-api.us-east-1.amazonaws.com/prod'
+import './index.css'
 
 const Page = () => {
     const { register, handleSubmit } = useForm()
@@ -38,13 +38,17 @@ const Page = () => {
 
     return (
         <div className='fa-upload-page'>
-            <h1>Upload File Page</h1>
-            <form onSubmit={handleSubmit(onSubmitForm)} action="#" method="POST">
+            <h1 className='title fa-upload-title'>File Upload & Image Preview</h1>
+            <form className='fa-upload-form' onSubmit={handleSubmit(onSubmitForm)} action="#" method="POST">
                 <input {...register('picture')} type="file" name='picture' required />
                 <button type='submit'>Upload</button>
             </form>
             {
-                image && <img className='fa-uploaded-img' src={image} alt='' />
+                image && (
+                    <div className='fa-uploaded-img-wrapper'>
+                        <img className='fa-uploaded-img' src={image} alt='' />
+                    </div>
+                )
             }
         </div>
     )
