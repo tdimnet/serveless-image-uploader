@@ -3,4 +3,16 @@
     align-items: center;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.fa-homepage-img-wrapper {
+    max-width: 1024px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+.fa-homepage-img {
+    width: 100%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
