@@ -7,7 +7,11 @@
 
 ## Project architecture
 
-@TODO
+
+### AWS Infrastructure
+
+![The services used for this project](./serverless-images-uploader.drawio.png)
+
 
 ## Using the AWS CDK
 
