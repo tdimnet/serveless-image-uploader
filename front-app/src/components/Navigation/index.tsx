@@ -12,7 +12,7 @@ const Component = () => (
             </li>
             <li className='nav-item'>
                 <Link to="/upload" className='nav-link'>
-                    Upload file
+                    Upload image
                 </Link>
             </li>
             <li className='nav-item'>

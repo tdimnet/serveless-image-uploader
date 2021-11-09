@@ -1,0 +1,26 @@
+.fa-files-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fa-files-list-title {
+    margin-bottom: 32px;
+}
+
+.fa-files-list-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    row-gap: 16px;
+    column-gap: 16px;
+}
+
+.fa-files-list-image {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

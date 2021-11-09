@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import { API_GATEWAY } from '../../constants'
-
+import './index.css'
 
 const Page = () => {
     const [ data, setData ] = useState({
@@ -19,28 +19,29 @@ const Page = () => {
             .finally(() => setIsLoading(!isLoading))
     }, [])
 
-    if (isLoading) {
-        return null
-    }
+    const renderPageContent = () => {
+        if (isLoading) {
+            return (<p>Loading...</p>)
+        }
 
-    if (error) {
-        return (
-            <div>
-                <p>An error occurs...</p>
-            </div>
-        )
-    }
+        if (error) {
+            return <p>An error occurs...</p>
+        }
 
-    const { images } = data
+        const { images } = data
+        return images.length ?
+            images.map(image => <img key={image} src={image} alt='' className='fa-files-list-image' />)
+            : <p>No images</p>
+    }
 
     return (
-        <div>
-            <h1 className='title'>Files List Page</h1>
-            {
-                images.length ?
-                    images.map(image => <img key={image} src={image} alt='' />)
-                    : <p>No images</p>
-            }
+        <div className='fa-files-list'>
+            <h1 className='title fa-files-list-title'>Your Uploaded Images</h1>
+            <div className='fa-files-list-content'>
+                {
+                    renderPageContent()
+                }
+            </div>
         </div>
     )
 }
