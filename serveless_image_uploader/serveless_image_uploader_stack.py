@@ -1,4 +1,3 @@
-from attr import Attribute
 from aws_cdk import (
     core as cdk,
     aws_lambda as _lambda,
@@ -9,6 +8,8 @@ from aws_cdk import (
     aws_cloudfront_origins as origins,
     aws_dynamodb as ddb,
 )
+
+from datadog_cdk_constructs import Datadog
 
 
 class ServelessImageUploaderStack(cdk.Stack):
@@ -88,6 +89,18 @@ class ServelessImageUploaderStack(cdk.Stack):
                 FILE_TO_DB_LAMBDA=file_to_ddb_lambda.function_name
             )
         )
+
+                # Datadog Lambda Constructs
+        datadog = Datadog(
+            self, 'datadog',
+            python_layer_version=50,
+            extension_layer_version=13,
+            api_key='yourApiKey'
+        )
+
+        datadog.add_lambda_functions([
+            hello_world_lambda
+        ])
 
         # API Gateway
         api = apigw.RestApi(

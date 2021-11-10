@@ -22,7 +22,10 @@ aws-cdk.aws-iam==1.129.0
 aws-cdk.aws-kinesis==1.129.0
 aws-cdk.aws-kms==1.129.0
 aws-cdk.aws-lambda==1.129.0
+aws-cdk.aws-lambda-nodejs==1.129.0
+aws-cdk.aws-lambda-python==1.129.0
 aws-cdk.aws-logs==1.129.0
+aws-cdk.aws-logs-destinations==1.129.0
 aws-cdk.aws-route53==1.129.0
 aws-cdk.aws-s3==1.129.0
 aws-cdk.aws-s3-assets==1.129.0
@@ -41,6 +44,7 @@ boto3==1.19.2
 botocore==1.22.2
 cattrs==1.8.0
 constructs==3.3.161
+datadog-cdk-constructs==0.4.0
 jmespath==0.10.0
 jsii==1.40.0
 publication==0.0.3
