@@ -1,3 +1,5 @@
+import os
+
 from aws_cdk import (
     core as cdk,
     aws_lambda as _lambda,
@@ -11,11 +13,24 @@ from aws_cdk import (
 
 from datadog_cdk_constructs import Datadog
 
+DD_API_KEY = os.environ.get('DD_API_KEY')
 
 class ServelessImageUploaderStack(cdk.Stack):
 
     def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        # For now, the code below does not work
+        # self.add_transform('Datadog')
+        # cdk.CfnMapping(
+        #     self, 'Datadog',
+        #     mapping={
+        #         "Parameters": {
+        #             "service": "serverless-image-uploader",
+        #             "env": "dev"
+        #         }
+        #     }
+        # )
 
         # S3
         images_bucket = s3.Bucket(
@@ -90,12 +105,12 @@ class ServelessImageUploaderStack(cdk.Stack):
             )
         )
 
-                # Datadog Lambda Constructs
+        # Datadog Lambda Constructs
         datadog = Datadog(
             self, 'datadog',
             python_layer_version=50,
             extension_layer_version=13,
-            api_key='yourApiKey'
+            api_key=DD_API_KEY
         )
 
         datadog.add_lambda_functions([

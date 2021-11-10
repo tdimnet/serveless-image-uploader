@@ -43,14 +43,27 @@ aws-cdk.region-info==1.129.0
 boto3==1.19.2
 botocore==1.22.2
 cattrs==1.8.0
+certifi==2021.10.8
+charset-normalizer==2.0.7
 constructs==3.3.161
+datadog==0.41.0
 datadog-cdk-constructs==0.4.0
+datadog-lambda==3.50.0
+ddtrace==0.55.4
+decorator==5.1.0
+idna==3.3
 jmespath==0.10.0
 jsii==1.40.0
+packaging==21.2
+protobuf==3.19.1
 publication==0.0.3
+pyparsing==2.4.7
 python-dateutil==2.8.2
+requests==2.26.0
 s3transfer==0.5.0
 -e .
 six==1.16.0
+tenacity==8.0.1
 typing-extensions==3.10.0.2
 urllib3==1.26.7
+wrapt==1.13.3
