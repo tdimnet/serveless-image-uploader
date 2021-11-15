@@ -3,9 +3,9 @@
 
 ## Prerequisites
 
-- Python3
-- NodeJS and Npm
-- The AWS CDK
+- Python3 (3.9 is recommended).
+- NodeJS and Npm (14.18 and 6.14)
+- The AWS CDK (1.132)
 - An AWS Account with your Access Key and Secret Access Key.
 
 ## Project architecture
@@ -13,34 +13,27 @@
 ```
 serveless-image-uploader
 |   README.md
-|---front-app
+|---front-app # The Front-End React App
 |---lambda
 |   |---file_to_ddb.py
-|---scripts
+|   |---hello_world.py
+|   |---list_files.py
+|   |---upload-file.py
+|---scripts # You can run this script to populate example images
 |   |---upload_images.py
 |   |---assets # The example assets
-|---serveless_image_uploader
+|---serveless_image_uploader # Your AWS infra lives here
 ```
 
-### AWS Infrastructure
+## AWS Infrastructure
 
 ![The services used for this project](./serverless-images-uploader.drawio.png)
 
 
 ## Using the AWS CDK
 
-@TODO
+- `npm install -g aws-cdk`: Install the AWS CDK.
 
-
-### How to run the project with the AWS CDK
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
 
 To manually create a virtualenv on MacOS and Linux:
 
@@ -67,6 +60,11 @@ Once the virtualenv is activated, you can install the required dependencies.
 $ pip install -r requirements.txt
 ```
 
+Then bootstrap your environnement.
+```
+$ cdk bootstrap
+```
+
 At this point you can now synthesize the CloudFormation template for this code.
 
 ```
@@ -77,7 +75,13 @@ To add additional dependencies, for example other CDK libraries, just add
 them to your `setup.py` file and rerun the `pip install -r requirements.txt`
 command.
 
-### Useful commands
+## Run the Front-end project
+
+- `cd front-app` - Go the Front-end directory project
+- `yarn` - Install the dependencies
+- `yarn start` - Launch the React project
+
+## Useful commands
 
  * `cdk ls`          list all stacks in the app
  * `cdk synth`       emits the synthesized CloudFormation template
