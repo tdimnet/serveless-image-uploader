@@ -71,9 +71,18 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
+Finally deploy the project:
+
+```
+$ cdk deploy
+```
+
+Before you go try upload images, copy the output of the deploy command, it
+looks like this one: **https://4ooi3ccx66.execute-api.us-east-1.amazonaws.com/prod**
+
+Copy and paste this link in the following files:
+- `scripts/upload_images.py` - It's the BASE_URL
+- `front-app/src/constants.ts`
 
 ## Run the Front-end project
 
@@ -81,10 +90,19 @@ command.
 - `yarn` - Install the dependencies
 - `yarn start` - Launch the React project
 
-## Useful commands
+## Useful commands 
 
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
+
+### With the AWS CDK:
+
+* `cdk ls`          list all stacks in the app
+* `cdk synth`       emits the synthesized CloudFormation template
+* `cdk deploy`      deploy this stack to your default AWS account/region
+* `cdk diff`        compare deployed stack with current state
+* `cdk docs`        open CDK documentation
+
+### With Python
+
+- `python scripts/upload_images.py` - Upload example images.
+
+
