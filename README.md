@@ -3,10 +3,24 @@
 
 ## Prerequisites
 
-@TODO
+- Python3
+- NodeJS and Npm
+- The AWS CDK
+- An AWS Account with your Access Key and Secret Access Key.
 
 ## Project architecture
 
+```
+serveless-image-uploader
+|   README.md
+|---front-app
+|---lambda
+|   |---file_to_ddb.py
+|---scripts
+|   |---upload_images.py
+|   |---assets # The example assets
+|---serveless_image_uploader
+```
 
 ### AWS Infrastructure
 
@@ -17,7 +31,8 @@
 
 @TODO
 
-### How to run the project
+
+### How to run the project with the AWS CDK
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 This project is set up like a standard Python project.  The initialization
