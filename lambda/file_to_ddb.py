@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 
 import boto3
@@ -5,14 +6,19 @@ import boto3
 ddb = boto3.resource('dynamodb')
 
 def handler(event, context):
-    filename = event.get('file')
-    ddb_table_name = os.environ.get('DDB_TABLE_NAME')
+    file_path = event.get('file_path')
+    file_name = event.get('file_name')
+    file_datetime = event.get('datetime')
 
+    ddb_table_name = os.environ.get('DDB_TABLE_NAME')
     ddb_table = ddb.Table(ddb_table_name)
 
     response = ddb_table.put_item(
         Item={
-            'file_path': filename
+            'file_path': file_path,
+            'file_name': file_name,
+            'image_type': 'jpg',
+            "file_datetime": file_datetime
         }
     )
 

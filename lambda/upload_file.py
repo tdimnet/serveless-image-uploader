@@ -18,9 +18,14 @@ def handler(event, context):
     json_body = json.loads(event['body'])
     file_name = json_body['name']
     file_content = json_body['file']
-    
-    file_base_64 = base64.b64decode(file_content[23: ])
-    
+
+    file_base_64 = ''
+
+    if file_content.startswith('data:image/jpeg;base64,'):
+        file_base_64 = base64.b64decode(file_content[23: ])
+    else:
+        file_base_64 = base64.b64decode(file_content)
+
     unique_id = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     full_path = '{}/{}'.format(unique_id, file_name)
 
@@ -30,7 +35,11 @@ def handler(event, context):
         ContentType='image/jpg'
     )
 
-    payload = {"file": full_path}
+    payload = {
+        "file_name": file_name,
+        "file_path": full_path,
+        "datetime": unique_id
+    }
 
     client.invoke(
         FunctionName=file_to_db_lambda,
