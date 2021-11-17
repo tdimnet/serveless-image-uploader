@@ -1,4 +1,3 @@
-from attr import Attribute
 from aws_cdk import (
     core as cdk,
     aws_lambda as _lambda,
@@ -118,7 +117,7 @@ class ServelessImageUploaderStack(cdk.Stack):
             apigw.LambdaIntegration(upload_file_lambda)
         )
 
-        # Grant access to ressources
+        # Grant access to resources
         images_bucket.grant_read(list_files_lambda)
         images_bucket.grant_write(upload_file_lambda)
 
