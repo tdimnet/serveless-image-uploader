@@ -33,7 +33,7 @@ serveless-image-uploader
 
 ## How to run the project
 
-### Install the React application
+### Setting up the React application
 
 - `cd front-app` - Go the Front-end directory project
 - `yarn` - Install the dependencies
@@ -42,7 +42,7 @@ serveless-image-uploader
   do that if you want to deploy the project to AWS**
 
 
-### Install the CDK, set up the env and deploy it to AWS
+### Installing the CDK, set up the env and deploy it to AWS
 
 - `npm install -g aws-cdk`: Install the AWS CDK
 - `python3 -m venv .venv`: Create a virtualenv` on MacOS and Linux
@@ -59,7 +59,7 @@ serveless-image-uploader
 deploy` command.
 
 
-### Don't forget to add the API Gateway URL
+### Adding the API Gateway URL
 
 Before you go try upload images, copy the output of the deploy command, it
 looks like this one: **https://4ooi3ccx66.execute-api.us-east-1.amazonaws.com/prod**
@@ -69,7 +69,7 @@ Copy and paste this link in the following files:
 - `front-app/src/constants.ts`
 
 
-### Don't forget to tear down your AWS resources
+### Tearing down your AWS resources
 
 - `cdk destroy`: delete the resources from your AWS account.
 
